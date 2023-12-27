@@ -18,7 +18,7 @@ install:
 
 uninstall:
 
-test:
+test: clean $(PROJECT_NAME).a
 	cd backend; checkmk $(PROJECT_NAME).check > $(PROJECT_NAME)_test.c
 	cd backend; $(CC) $(FLAGS) $(PROJECT_NAME)_test.c $(PROJECT_NAME).a -o $(PROJECT_NAME)_test $(CHECKFL)
 	cd backend; ./$(PROJECT_NAME)_test
