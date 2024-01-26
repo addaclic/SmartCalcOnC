@@ -297,8 +297,8 @@ void sort_list(stack *infix_list, stack *postfix_list) {
         token null_token = {"0", 1, NUM};
         push_token(postfix_list, null_token);
       }
-      while (!(buff.mass_leks[buff.leks_count].priority == FPOW &&
-               spolnat->mass_leks[i].priority == FPOW) &&
+      while (!(ops_list.leksems[ops_list.head].priority == T_POW &&
+               infix_list->leksems[i].priority == T_POW) &&
              ops_list.head != -1 &&
              ((infix_list->leksems[i].priority <=
                ops_list.leksems[ops_list.head].priority))) {
