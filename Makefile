@@ -4,7 +4,7 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror -std=c11
 CHECKFL = $(shell pkg-config --cflags --libs check)
 
-all:
+.PHONY: test clean
 
 $(PROJECT_NAME).a:
 	cd backend; $(CC) $(FLAGS) -c $(PROJECT_NAME).c
@@ -12,7 +12,7 @@ $(PROJECT_NAME).a:
 	cd backend; rm $(PROJECT_NAME).o
 
 clean:
-	cd backend; rm $(PROJECT_NAME).a $(PROJECT_NAME)_test $(PROJECT_NAME)_test.c
+	cd backend; rm -rf $(PROJECT_NAME).a $(PROJECT_NAME)_test $(PROJECT_NAME)_test.c
 
 install:
 
