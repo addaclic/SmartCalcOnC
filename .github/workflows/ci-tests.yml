@@ -12,7 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: install package
-      run: sudo apt-get install pkg-config check
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install pkg-config check
 
     - name: Tests
       run: make test
