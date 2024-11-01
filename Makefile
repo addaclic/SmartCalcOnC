@@ -1,8 +1,8 @@
-PROJECT_NAME = SmartCalcOnC
+PROJECT_NAME := SmartCalcOnC
 
-CC = gcc
-FLAGS = -Wall -Wextra -Werror -std=c11
-CHECKFL = $(shell pkg-config --cflags --libs check)
+CC := gcc
+FLAGS := -Wall -Wextra -Werror -std=c11
+CHECKFL := $(shell pkg-config --cflags --libs check)
 
 .PHONY: test clean
 
