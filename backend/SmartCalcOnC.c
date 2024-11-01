@@ -8,7 +8,7 @@ int parse_num(char **str, stack *to_list) {
   while (isdigit(**str) || **str == '.') {
     if (**str == '.') tochka++;
     temp.tokenlen++;
-    (*str)++;
+    ++(*str);
   }
   if (tochka > 1) error_code = 2;
   temp.priority = NUM;
@@ -93,7 +93,7 @@ void parse_ops(char **str, stack *to_list) {
   else if (**str == 'x')
     temp.priority = DBLX;
   temp.tokenlen = 1;
-  (*str)++;
+  ++(*str);
   push_token(to_list, temp);
 }
 
@@ -106,7 +106,7 @@ void parse_brckts(char **str, stack *to_list) {
     temp.priority = CLS_BRCKTS;
   }
   temp.tokenlen = 1;
-  (*str)++;
+  ++(*str);
   push_token(to_list, temp);
 }
 
@@ -136,96 +136,96 @@ void make_div(double *stack_result, int *j) {
   double B = pop_double(stack_result, j);
   double A = pop_double(stack_result, j);
   stack_result[*j] = A / B;
-  (*j)++;
+  ++(*j);
 }
 
 void make_mull(double *stack_result, int *j) {
   double B = pop_double(stack_result, j);
   double A = pop_double(stack_result, j);
   stack_result[*j] = A * B;
-  (*j)++;
+  ++(*j);
 }
 
 void make_pow(double *stack_result, int *j) {
   double B = pop_double(stack_result, j);
   double A = pop_double(stack_result, j);
   stack_result[*j] = pow(A, B);
-  (*j)++;
+  ++(*j);
 }
 
 void make_add(double *stack_result, int *j) {
   double B = pop_double(stack_result, j);
   double A = pop_double(stack_result, j);
   stack_result[*j] = A + B;
-  (*j)++;
+  ++(*j);
 }
 
 void make_sub(double *stack_result, int *j) {
   double B = pop_double(stack_result, j);
   double A = pop_double(stack_result, j);
   stack_result[*j] = A - B;
-  (*j)++;
+  ++(*j);
 }
 
 void make_cos(double *stack_result, int *j) {
   double A = pop_double(stack_result, j);
   stack_result[*j] = cos(A);
-  (*j)++;
+  ++(*j);
 }
 
 void make_sin(double *stack_result, int *j) {
   double A = pop_double(stack_result, j);
   stack_result[*j] = sin(A);
-  (*j)++;
+  ++(*j);
 }
 
 void make_tan(double *stack_result, int *j) {
   double A = pop_double(stack_result, j);
   stack_result[*j] = tan(A);
-  (*j)++;
+  ++(*j);
 }
 
 void make_ln(double *stack_result, int *j) {
   double A = pop_double(stack_result, j);
   stack_result[*j] = log(A);
-  (*j)++;
+  ++(*j);
 }
 
 void make_sqrt(double *stack_result, int *j) {
   double A = pop_double(stack_result, j);
   stack_result[*j] = sqrt(A);
-  (*j)++;
+  ++(*j);
 }
 
 void make_log(double *stack_result, int *j) {
   double A = pop_double(stack_result, j);
   stack_result[*j] = log10(A);
-  (*j)++;
+  ++(*j);
 }
 
 void make_mod(double *stack_result, int *j) {
   double B = pop_double(stack_result, j);
   double A = pop_double(stack_result, j);
   stack_result[*j] = fmod(A, B);
-  (*j)++;
+  ++(*j);
 }
 
 void make_atan(double *stack_result, int *j) {
   double A = pop_double(stack_result, j);
   stack_result[*j] = atan(A);
-  (*j)++;
+  ++(*j);
 }
 
 void make_acos(double *stack_result, int *j) {
   double A = pop_double(stack_result, j);
   stack_result[*j] = acos(A);
-  (*j)++;
+  ++(*j);
 }
 
 void make_asin(double *stack_result, int *j) {
   double A = pop_double(stack_result, j);
   stack_result[*j] = asin(A);
-  (*j)++;
+  ++(*j);
 }
 
 void get_result(stack *postfix_list, double *result) {
@@ -288,7 +288,7 @@ void sort_list(stack *infix_list, stack *postfix_list) {
         infix_list->leksems[i].priority == DBLX)  // double sorting
       push_token(postfix_list, infix_list->leksems[i]);
     else if (infix_list->leksems[i].priority == OPN_BRCKTS)
-      push_token(&ops_list, infix_list->leksems[i]);  // Сортировка скобок
+      push_token(&ops_list, infix_list->leksems[i]);  // bracket sorting
     else if (infix_list->leksems[i].priority > OPN_BRCKTS &&
              infix_list->leksems[i].priority < CLS_BRCKTS) {
       if ((infix_list->leksems[i].priority == T_ADD && i == 0) ||
@@ -302,7 +302,7 @@ void sort_list(stack *infix_list, stack *postfix_list) {
              ops_list.head != -1 &&
              ((infix_list->leksems[i].priority <=
                ops_list.leksems[ops_list.head].priority))) {
-        push_token(postfix_list, pop_token(&ops_list));  // запись ops в postfix
+        push_token(postfix_list, pop_token(&ops_list));  // write ops in postfix
       }
       push_token(&ops_list, infix_list->leksems[i]);  //  ops sorting
     } else if (infix_list->leksems[i].priority == CLS_BRCKTS) {
@@ -340,10 +340,11 @@ int parse_func(char **str, stack *to_list) {
     (*str)++;
   }
   int offset_value = valid_token(temp.val_ptr, temp.tokenlen);
-  if (offset_value == -1)
+  if (offset_value == -1) {
     error_code = INV_FUNC;
-  else
+  } else {
     temp.val_ptr += offset_value;
+  }
   temp.priority = FUNC_T;
   if (temp.val_ptr[0] == 'm') temp.priority = T_MULL;
   push_token(to_list, temp);
@@ -362,8 +363,9 @@ int calc_process(stack *postfix_list, graph_data_t *in_out_param) {
       in_out_param->y_vals[i] = result;
       ++i;
     }
-  } else
+  } else {
     error_code = INV_PARAMS;
+  }
   return error_code;
 }
 

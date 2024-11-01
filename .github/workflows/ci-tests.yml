@@ -1,8 +1,8 @@
-name: C/C++ CI
+name: C/C++ CI Tests
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ master ]
 
 jobs:
   RunTests:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: install package
+    - name: install package dependencies
       run: |
         sudo apt-get update
         sudo apt-get -y install pkg-config check
