@@ -7,7 +7,6 @@ int parse_num(char **str, stack *to_list) {
   temp.val_ptr = *str;
   while (isdigit(**str) || **str == '.') {
     if (**str == '.') tochka++;
-    temp.tokenlen++;
     ++(*str);
   }
   if (tochka > 1) error_code = 2;
@@ -92,7 +91,6 @@ void parse_ops(char **str, stack *to_list) {
     temp.priority = T_POW;
   else if (**str == 'x')
     temp.priority = DBLX;
-  temp.tokenlen = 1;
   ++(*str);
   push_token(to_list, temp);
 }
@@ -105,7 +103,6 @@ void parse_brckts(char **str, stack *to_list) {
   } else {
     temp.priority = CLS_BRCKTS;
   }
-  temp.tokenlen = 1;
   ++(*str);
   push_token(to_list, temp);
 }
@@ -294,7 +291,7 @@ void sort_list(stack *infix_list, stack *postfix_list) {
       if ((infix_list->leksems[i].priority == T_ADD && i == 0) ||
           (infix_list->leksems[i].priority == T_ADD && i != 0 &&
            infix_list->leksems[i - 1].priority == OPN_BRCKTS)) {
-        token null_token = {"0", 1, NUM};
+        token null_token = {"0", NUM};
         push_token(postfix_list, null_token);
       }
       while (!(ops_list.leksems[ops_list.head].priority == T_POW &&
@@ -335,11 +332,12 @@ int parse_func(char **str, stack *to_list) {
   int error_code = 0;
   token temp = {0};
   temp.val_ptr = *str;
+  int tokenlen = 0;
   while (isalpha(**str)) {
-    temp.tokenlen++;
+    tokenlen++;
     (*str)++;
   }
-  int offset_value = valid_token(temp.val_ptr, temp.tokenlen);
+  int offset_value = valid_token(temp.val_ptr, tokenlen);
   if (offset_value == -1) {
     error_code = INV_FUNC;
   } else {

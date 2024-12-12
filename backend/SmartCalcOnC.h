@@ -27,8 +27,7 @@ enum priority {
 
 typedef struct {
   char *val_ptr;
-  int tokenlen;
-  int priority;
+  short priority;
 } token;
 
 typedef struct {

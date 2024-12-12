@@ -1,45 +1,6 @@
 #include <stdio.h>
 #include "SmartCalcOnC.h"
 
-#test make_tokens1
-char* str = "35+9";
-stack insfix_list ={0};
-insfix_list.head = -1;
-int summtokenlen = 0;
-make_tokens(str, &insfix_list);
-int i = 0;
-while (insfix_list.leksems[i].priority) {
-    summtokenlen+=insfix_list.leksems[i].tokenlen;
-    i++;
-}
-ck_assert_int_eq(strlen(str),summtokenlen);
-
-#test make_tokens2
-char* str = "35+9^2*(3+2)";
-stack insfix_list ={0};
-insfix_list.head = -1;
-int summtokenlen = 0;
-make_tokens(str, &insfix_list);
-int i = 0;
-while (insfix_list.leksems[i].priority) {
-    summtokenlen+=insfix_list.leksems[i].tokenlen;
-    i++;
-}
-ck_assert_int_eq(strlen(str),summtokenlen);
-
-#test make_tokens3
-char* str = "35+9^2*(3+2)*cos(x)";
-stack insfix_list ={0};
-insfix_list.head = -1;
-int summtokenlen = 0;
-make_tokens(str, &insfix_list);
-int i = 0;
-while (insfix_list.leksems[i].priority) {
-    summtokenlen+=insfix_list.leksems[i].tokenlen;
-    i++;
-}
-ck_assert_int_eq(strlen(str),summtokenlen);
-
 #test smartcalc_1
 char* str = "35+9^2*(3+2)";
 double x = 0;
