@@ -4,67 +4,79 @@
 #test smartcalc_1
 char* str = "35+9^2*(3+2)";
 double x = 0;
-smartcalc(str, &x);
+int res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(440, x);
 
 #test smartcalc_2
 char* str = "35-10";
 double x = 0;
-smartcalc(str, &x);
+int res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(25, x);
 
 #test smartcalc_3
 char* str = "35.5 /2";
 double x = 0;
-smartcalc(str, &x);
+int res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(17.75, x);
 
 #test smartcalc_4
 char* str = "cos(0) /2";
 double x = 0;
-smartcalc(str, &x);
+int res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(0.5, x);
 str = "acos(1)";
-smartcalc(str, &x);
+res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(0, x);
 
 #test smartcalc_5
 char* str = "sin(0) /2";
 double x = 0;
-smartcalc(str, &x);
+int res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(0, x);
 str = "asin(-0.5)";
-smartcalc(str, &x);
+res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq_tol(-0.523598776, x, 6);
 
 #test smartcalc_6
 char* str = "sin(1.57079632679489661923132169163975144) /2";
 double x = 0;
-smartcalc(str, &x);
+int res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(0.5, x);
 
 #test smartcalc_7
 char* str = "-36-sin(1.57079632679489661923132169163975144)+9^2*(-3-2)";
 double x = 0;
-smartcalc(str, &x);
+int res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(-442, x);
 
 #test smartcalc_8
 char* str = "3mod2";
 double x = 0;
-smartcalc(str, &x);
+int res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(1, x);
 
 #test smartcalc_9
 char* str = "ln(1)";
 double x = 0;
-smartcalc(str, &x);
+int res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(0, x);
 
 #test smartcalc_10
 char* str = "sqrt(4)";
 double x = 0;
-smartcalc(str, &x);
+int res = smartcalc(str, &x);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(2, x);
 
 #test smartcalc_11
@@ -90,38 +102,38 @@ ck_assert_double_eq(25, x);
 char* str = "1dfs";
 double x = 0;
 int res = smartcalc(str, &x);
-ck_assert_int_eq(1, res);
+ck_assert_int_eq(INV_STR, res);
 
 #test smartcalc_14
 char* str = "35.56.11 + 25";
 double x = 0;
 int res = smartcalc(str, &x);
-ck_assert_int_eq(2, res);
+ck_assert_int_eq(INV_NUM, res);
 
 #test smartcalc_15
 char* str = "35+*5";
 double x = 0;
 int res = smartcalc(str, &x);
-ck_assert_int_eq(4, res);
+ck_assert_int_eq(INV_SQNC, res);
 str = "cossin(0)";
 res = smartcalc(str, &x);
-ck_assert_int_eq(3, res);
+ck_assert_int_eq(INV_FUNC, res);
 str = "+";
 res = smartcalc(str, &x);
-ck_assert_int_eq(4, res);
+ck_assert_int_eq(INV_SQNC, res);
 str = "5";
 res = smartcalc(str, &x);
-ck_assert_int_eq(0, res);
+ck_assert_int_eq(OK, res);
 ck_assert_double_eq(5, x);
 
 #test smartcalc_16
 char* str = "(3-x))(2+x)";
 double x = 0;
 int res = smartcalc(str, &x);
-ck_assert_int_eq(4, res);
+ck_assert_int_eq(INV_SQNC, res);
 str = "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq";
 res = smartcalc(str, &x);
-ck_assert_int_eq(1, res);
+ck_assert_int_eq(INV_STR, res);
 
 #test smartcalc_17
 char* str = "2^3^2";

@@ -1,3 +1,5 @@
+[![C/C++ CI Tests](https://github.com/addaclic/SmartCalcOnC/actions/workflows/ci-tests.yml/badge.svg)](https://github.com/addaclic/SmartCalcOnC/actions/workflows/ci-tests.yml)
+
 # The "Engineering Calculator"
 
 project is an application developed in C++ that allows users to perform complex mathematical calculations. The main feature of this calculator is the implementation of the Polish notation algorithm (Reverse Polish Notation), which enables efficient processing of mathematical expressions.

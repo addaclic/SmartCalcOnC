@@ -1,7 +1,7 @@
 #include "SmartCalcOnC.h"
 
 int parse_num(char **str, stack *to_list) {
-  int error_code = 0;
+  int error_code = OK;
   int tochka = 0;
   token temp = {0};
   temp.val_ptr = *str;
@@ -9,14 +9,14 @@ int parse_num(char **str, stack *to_list) {
     if (**str == '.') tochka++;
     ++(*str);
   }
-  if (tochka > 1) error_code = 2;
+  if (tochka > 1) error_code = INV_NUM;
   temp.priority = NUM;
   push_token(to_list, temp);
   return error_code;
 }
 
 int make_tokens(char *str, stack *infix_list) {
-  int error_code = 0;
+  int error_code = OK;
   if (strlen(str) > 255)
     error_code = INV_STR;
   else {
@@ -45,7 +45,7 @@ int make_tokens(char *str, stack *infix_list) {
 }
 
 int sequence_validation(stack *infix_list) {
-  int error_code = 0;
+  int error_code = OK;
   char validation_matrix[][ALL] = {
       {0, 1, 1, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 1, 1, 1, 1, 0, 0},
       {1, 0, 0, 1, 1, 1, 1, 0, 0}, {1, 0, 0, 1, 1, 1, 1, 1, 0},
@@ -329,7 +329,7 @@ int valid_token(char *str, int len) {
 }
 
 int parse_func(char **str, stack *to_list) {
-  int error_code = 0;
+  int error_code = OK;
   token temp = {0};
   temp.val_ptr = *str;
   int tokenlen = 0;
@@ -350,7 +350,7 @@ int parse_func(char **str, stack *to_list) {
 }
 
 int calc_process(stack *postfix_list, graph_data_t *in_out_param) {
-  int error_code = 0;
+  int error_code = OK;
   if (in_out_param->x_max > in_out_param->x_min) {
     int i = 0;
     double step = (in_out_param->x_max - in_out_param->x_min) / STEP;
@@ -368,7 +368,7 @@ int calc_process(stack *postfix_list, graph_data_t *in_out_param) {
 }
 
 int smartcalc(char *src, double *result) {  // need mode & void result
-  int error_code = 0;
+  int error_code = OK;
   stack infix_list = {0};
   infix_list.head = -1;
   stack postfix_list = {0};
@@ -385,7 +385,7 @@ int smartcalc(char *src, double *result) {  // need mode & void result
 }
 
 int calcgrafics(char *src, graph_data_t *result) {
-  int error_code = 0;
+  int error_code = OK;
   stack infix_list = {0};
   infix_list.head = -1;
   stack postfix_list = {0};
