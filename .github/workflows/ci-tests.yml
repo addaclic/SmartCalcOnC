@@ -2,7 +2,7 @@ name: C/C++ CI Tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   RunTests:
