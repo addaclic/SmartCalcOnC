@@ -14,8 +14,8 @@ jobs:
     - name: install package dependencies
       run: |
         sudo apt-get update
-        sudo apt-get -y install pkg-config check
+        sudo apt-get -y install pkg-config check gcovr
 
     - name: Tests
-      run: make test
+      run: make gcov
       

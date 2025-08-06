@@ -30,5 +30,6 @@ gcov:
 	$(CC) $(FLAGS) --coverage $(SRC_DIR)$(PROJECT_NAME)_test.c $(SRC_DIR)$(PROJECT_NAME).c -o $(SRC_DIR)$(PROJECT_NAME)_test $(CHECKFL)
 	./$(SRC_DIR)$(PROJECT_NAME)_test
 	@rm $(SRC_DIR)*_test.gc*
-	mkdir gcov_report
-	gcovr --html --html-details gcov_report/index.html
+# 	mkdir gcov_report
+# 	gcovr --html --html-details gcov_report/index.html
+	gcovr --print-summary
